@@ -27,6 +27,8 @@ CREATE TABLE [Course](
 [Semester] nvarchar(50), 
 );
 
+EXEC sp_rename 'Course.AcademyYear', 'AcademicYear', 'COLUMN';
+
 CREATE TABLE [Grades](
 [Id] int PRIMARY KEY NOT NULL,
 [StudentId] int NOT NULL,
