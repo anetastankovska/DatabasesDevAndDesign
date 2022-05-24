@@ -8,6 +8,9 @@ CREATE TABLE [BusinessEntity] (
 [Size] nvarchar(10)
 );
 
+ALTER TABLE [BusinessEntity] 
+ADD CONSTRAINT PK_BusinessEntity_Id PRIMARY KEY (Id);
+
 INSERT INTO BusinessEntity(Id, [Name], Region, ZipCode, Size)
 VALUES(1, 'Academy for Programming', 'Skopje', '1000', '100');
 
@@ -57,6 +60,9 @@ CREATE TABLE [Employee](
 [NationalIdNumber] nvarchar(20)
 );
 
+ALTER TABLE [Employee] 
+ADD CONSTRAINT PK_Emoloyee_Id PRIMARY KEY (Id);
+
 CREATE TABLE [Product](
 [Id] int NOT NULL,
 [Code] nvarchar(50),
@@ -66,6 +72,9 @@ CREATE TABLE [Product](
 [Price] decimal(18,2),
 [Cost] decimal(18,2)
 );
+
+ALTER TABLE [Product] 
+ADD CONSTRAINT PK_Product_Id PRIMARY KEY (Id);
 
 CREATE TABLE [Customer](
 [Id] int NOT NULL,
@@ -78,6 +87,9 @@ CREATE TABLE [Customer](
 [isActive] bit NOT NULL
 );
 
+ALTER TABLE [Customer] 
+ADD CONSTRAINT PK_Customer_Id PRIMARY KEY (Id);
+
 CREATE TABLE [Order](
 [Id] bigint NOT NULL,
 [OrderDate] datetime,
@@ -89,6 +101,9 @@ CREATE TABLE [Order](
 [Comment] nvarchar(MAX)
 );
 
+ALTER TABLE [Order] 
+ADD CONSTRAINT PK_Order_Id PRIMARY KEY (Id);
+
 CREATE TABLE [OrderDetails](
 [Id] bigint NOT NULL,
 [OrderId] bigint,
@@ -96,5 +111,8 @@ CREATE TABLE [OrderDetails](
 [Quantity] int,
 [Price] decimal(18,2)
 );
+
+ALTER TABLE [OrderDetails] 
+ADD CONSTRAINT PK_OrderDetails_Id PRIMARY KEY (Id);
 
 
