@@ -1,13 +1,13 @@
 USE [master]
 GO
 
-DROP DATABASE IF EXISTS [SEDCNew]
+DROP DATABASE IF EXISTS [SEDC]
 GO
 
-CREATE DATABASE [SEDCNew]
+CREATE DATABASE [SEDC]
 GO
 
-USE [SEDCNew]
+USE [SEDC]
 GO
 
 DROP TABLE IF EXISTS [dbo].[OrderDetails]
@@ -67,7 +67,7 @@ CONSTRAINT [PK_Orders] PRIMARY KEY(Id)
 CREATE TABLE [OrderDetails](
 	[Id] bigint IDENTITY(1,1) NOT NULL,
 	[OrderId] bigint NULL,
-	[ProdictId] int NULL,
+	[ProductId] int NULL,
 	[Quantity] int NULL,
 	[Price] decimal(18,2) NULL,
 CONSTRAINT [PK_OrderDetails] PRIMARY KEY(Id)
