@@ -2,13 +2,9 @@ USE SEDC
 GO
 
 --List all BusinessEntity Names and Customer Names in single result set with duplicates
---SELECT be.[Name], cs.[Name] FROM [BusinessEntities] AS be
---FULL OUTER JOIN [Customers] AS cs ON be.Id=cs.Id;
---GO
-
-select Name from BusinessEntities
+SELECT Name FROM BusinessEntities
 UNION ALL 
-select Name from Customers
+SELECT Name FROM Customers
 
 
 --List all regions where some BusinessEntity is based, or some Customer is based. Remove duplicates

@@ -18,5 +18,3 @@ ALTER TABLE [Products]
 ADD CONSTRAINT UC_Products_Name
 UNIQUE([Name])
 GO
-
-SELECT * FROM Products
