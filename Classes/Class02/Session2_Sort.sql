@@ -1,7 +1,15 @@
-SELECT * FROM Employees
-ORDER BY [FirstName] ASC, [Lastname] ASC;
+SELECT FirstName, LastName
+FROM Employees
+ORDER BY FirstName
 
-SELECT * FROM Employees
-WHERE FirstName = 'Goran'
-ORDER BY [FirstName] DESC, DateOfBirth ASC;
+
+SELECT * 
+FROM Customers
+ORDER BY Name ASC
+
+
+SELECT * 
+FROM Products
+ORDER BY Name DESC	
+
 
