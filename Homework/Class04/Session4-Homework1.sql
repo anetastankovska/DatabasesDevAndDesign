@@ -1,44 +1,40 @@
 USE SEDC
 
 --Calculate the total amount on all orders in the system
-SELECT COUNT(*) AS [Total amount of orders]
+SELECT SUM(TotalPrice) AS [Total amount of orders]
 FROM Orders
 GO
 
-/*Calculate the total amount per BusinessEntity on all orders in the system
-(Showing the names of the BusinessEntity)*/
-SELECT be.[Name] AS [Business entity name], COUNT(*) AS [Total amount of orders]
-FROM [Orders] as o
-JOIN [BusinessEntities] AS be on o.[BusinessEntityId] = be.[Id]
-GROUP BY [Name], [BusinessEntityId]
+/*Calculate the total amount per BusinessEntity on all orders in the system*/
+SELECT be.[Name] AS [Business Entity Name], SUM(TotalPrice) AS [Total amount of orders]
+FROM Orders AS o
+JOIN BusinessEntities AS be
+ON o.BusinessEntityId = be.Id
+GROUP BY be.Name 
 GO
 
---(Showing only the ID of the BusinessEntity)
-SELECT BusinessEntityId, COUNT(*) AS [Total amount of orders]
-FROM Orders
-GROUP BY BusinessEntityId 
 
 /*Calculate the total amount per BusinessEntity on all orders in the system from Customers with ID < 20
-(We can omit the CustomerId column, but I have added it in the result)*/
-SELECT be.[Name] AS [Business entity name], COUNT(*) AS [Total amount of orders], o.CustomerId AS [Customer ID]
-FROM [Orders] as o
-JOIN [BusinessEntities] AS be on o.[BusinessEntityId] = be.[Id]
-GROUP BY [Name], [BusinessEntityId], [CustomerId]
+(We can omit the CustomerId column, but I have added it in the result so that we can see that only customers with ID under 20 are included)*/
+SELECT be.[Name] AS [Business Entity Name], SUM(TotalPrice) AS [Total amount of orders], o.CustomerId AS [Customer ID]
+FROM [Orders] AS o
+JOIN BusinessEntities AS be
+ON o.BusinessEntityId = be.Id
+GROUP BY be.Name, o.[CustomerId]
 HAVING o.CustomerId < 20
 GO
 
-/*Find the Maximal Order amount, and the Average Order amount per BusinessEntity on all orders in the system
-(First interpretation of the requirement: 
-The maximal order amount - the maximal amount of products in a single order
-The average order amount - the average amount of products in a single order
-)*/
-SELECT be.Name, COUNT(o.Id) AS [Total amount of orders], MAX(od.Quantity) AS [Maximal Order Amount of prodicts in order], AVG(od.Quantity) AS [Average Order Amount of prodicts in order]
-FROM OrderDetails AS od
-JOIN Orders AS o ON od.OrderId = o.Id
-JOIN BusinessEntities AS be ON o.BusinessEntityId = be.Id
+--(If we want to agregate the amounts per business entity)
+SELECT be.[Name] AS [Business Entity Name], SUM(TotalPrice) AS [Total amount of orders]
+FROM [Orders] AS o
+JOIN BusinessEntities AS be
+ON o.BusinessEntityId = be.Id
+WHERE o.CustomerId < 20
 GROUP BY be.Name
+GO
 
-/*(Sedond interpretation of the requirement)
+
+/*Find the Maximal Order amount, and the Average Order amount per BusinessEntity on all orders in the system
 The maximal order amount - the maximal total price of order
 The average order amount - the average total price of order*/
 SELECT be.Name, COUNT(OrderId) AS [Total number of orders], MAX (o.TotalPrice) AS [Maximal price of order], AVG (o.TotalPrice) AS [Average price of order]
