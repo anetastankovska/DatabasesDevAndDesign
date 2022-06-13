@@ -23,8 +23,37 @@ GO
 -- Make sure to also insert Role of 'Employee' for the newly inserted user
 -- Don't forget the UserRoles table :)
 -- HINT: Use scope identity :)
+CREATE OR ALTER PROCEDURE [Insert new User] 
+(@FirstName NVARCHAR(100), 
+@LastName NVARCHAR(100), 
+@Address NVARCHAR(255), 
+@Phone NVARCHAR(50), 
+@RoleName NVARCHAR(100))
+AS
+DECLARE @UserId INT
+DECLARE @RoleId INT
+DECLARE @UserRoleId INT
+BEGIN
+BEGIN TRANSACTION
+	INSERT INTO Users (FirstName, LastName, Address, Phone)
+	VALUES(@FirstName, @LastName, @Address, @Phone)
+	SET @UserId = SCOPE_IDENTITY();
 
+	INSERT INTO Roles (Name)
+	VALUES('Employee')
+	SET @RoleId = SCOPE_IDENTITY();
 
+	SET @UserRoleId = (SELECT Id FROM UserRoles
+		WHERE UserId = @UserId AND RoleId = @RoleId)
+		IF @UserRoleId IS NULL
+		BEGIN
+			INSERT INTO UserRoles 
+			VALUES (@UserId, @RoleId)
+			SET @UserRoleId = SCOPE_IDENTITY()
+		END
+COMMIT TRANSACTION
+END
+GO
 
 
 -- Create a view, name it [Most ordered pizzas], that will list all the 
