@@ -13,14 +13,19 @@ SELECT dbo.GetUserFullName(u.FirstName, u.LastName)
 FROM Users u
 GO
 
+select * from PizzaSizes
 select * from Pizzas
+select * from PizzaToppings
+select * from Toppings
 select * from OrderDetails
 select * from Orders
 select * from Users
+select * from Roles
+select * from UserRoles
 GO
 
 --My code
-CREATE VIEW [Users waiting for orders]
+CREATE OR ALTER VIEW [Users waiting for orders]
 AS
 SELECT p.Name, u.FirstName, u.LastName, o.IsDelivered
 FROM Users u
